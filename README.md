@@ -96,7 +96,7 @@ The backend is powered by FastAPI with PostgreSQL for reliable data storage, whi
 
 1. **Clone the repository**
    ```
-   git clone https://github.com/Aijaz-Ahmed99/ai-pdf-assistant.git
+   git clone https://github.com/aijazahmed-dev/ai-pdf-assistant.git
    cd project-folder
    ```
 2. **Set up environment variables**
