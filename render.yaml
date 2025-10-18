@@ -1,0 +1,30 @@
+services:
+  - type: web
+    name: ai-pdf-backend
+    env: docker
+    dockerfilePath: Dockerfile.backend
+    plan: free
+    autoDeploy: true
+    envVars:
+      - key: PORT
+        value: 8000
+      - key: POSTGRES_USER
+        value: your_user
+      - key: POSTGRES_PASSWORD
+        value: your_password
+      - key: POSTGRES_DB
+        value: your_db_name
+      - key: DATABASE_URL
+        value: postgresql://your_user:your_password@your_render_db_host:5432/your_db_name
+
+  - type: web
+    name: ai-pdf-frontend
+    env: docker
+    dockerfilePath: Dockerfile.frontend
+    plan: free
+    autoDeploy: true
+    envVars:
+      - key: PORT
+        value: 8501
+      - key: BACKEND_URL
+        value: https://ai-pdf-backend.onrender.com
