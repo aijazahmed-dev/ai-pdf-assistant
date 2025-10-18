@@ -1,12 +1,17 @@
 import streamlit as st
 import pandas as pd
+from dotenv import load_dotenv
 import requests
+import os
+
 
 if "authenticated" not in st.session_state or not st.session_state.authenticated:
     st.error("You must log in to access the Dashboard.")
     st.stop()  # Prevents the rest of the page from running
 
-API_URL = "http://backend:8000"
+load_dotenv()
+
+API_URL = os.getenv("BACKEND_URL", "http://backend:8000")
 headers = {"Authorization": f"Bearer {st.session_state['token']}"}
 
 st.title("Dashboard")

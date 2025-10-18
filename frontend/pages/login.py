@@ -1,9 +1,13 @@
 import streamlit as st
+from dotenv import load_dotenv
 import requests
+import os
 
 st.title("Login")
 
-API_URL = "http://backend:8000"
+load_dotenv()
+
+API_URL = os.getenv("BACKEND_URL", "http://backend:8000")
 
 user = st.text_input("Enter Username/Password")
 password = st.text_input("Enter Password", type="password")
