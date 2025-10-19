@@ -1,5 +1,5 @@
 from fastapi import APIRouter, UploadFile, File, HTTPException, Query, Depends
-from passlib.hash import bcrypt
+from passlib.hash import bcrypt_sha256
 import uuid as uuid_pkg
 from pydantic import BaseModel, EmailStr, StringConstraints
 from typing import Annotated
@@ -104,14 +104,7 @@ def register_user(uuid: uuid_pkg.UUID, user: UserRegistration):
                     status_code=400, detail=f"Email '{user.email}' is already exist!"
                 )
 
-        raw_password = user.password
-        
-        # Encode to bytes, limit to 72 bytes
-        password_bytes = raw_password.encode("utf-8")[:72]
-
-        safe_password = password_bytes.decode("utf-8", errors="ignore")
-
-        hashed_password = bcrypt.hash(safe_password)
+        hashed_password = bcrypt_sha256.hash(user.password)
         return hashed_password
     
         # Save user data in the database
@@ -177,7 +170,7 @@ def user_login(login_data: LoginInput):
         db_password = row["password"]
 
 
-        if not bcrypt.verify(login_data.password, db_password):
+        if not bcrypt_sha256.verify(login_data.password, db_password):
             logging.warning(f"Login failed: Wrong password for {login_data.identifier}")
             raise HTTPException(status_code=401, detail="Invalid credentials.")
         
