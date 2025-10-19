@@ -105,7 +105,8 @@ def register_user(uuid: uuid_pkg.UUID, user: UserRegistration):
                 )
 
         # Hash the password
-        hashed_password = bcrypt.hash(user.password[:72])
+        password_bytes = user.password.encode("utf-8")[:72]
+        hashed_password = bcrypt.hash(password_bytes.decode("utf-8"))
     
         # Save user data in the database
         cursor.execute("INSERT INTO users (user_id, user_name, email, password, registration_date) VALUES (%s, %s, %s, %s, %s)",
