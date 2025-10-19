@@ -103,6 +103,8 @@ def register_user(uuid: uuid_pkg.UUID, user: UserRegistration):
                 raise HTTPException(
                     status_code=400, detail=f"Email '{user.email}' is already exist!"
                 )
+        
+        print("Bcrypt backend:", bcrypt_sha256.get_backend())
 
         hashed_password = bcrypt_sha256.hash(user.password)
     
