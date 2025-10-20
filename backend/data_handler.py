@@ -104,9 +104,9 @@ def register_user(uuid: uuid_pkg.UUID, user: UserRegistration):
                     status_code=400, detail=f"Email '{user.email}' is already exist!"
                 )
         
-        print("Bcrypt backend:", bcrypt_sha256.get_backend())
+        
 
-        hashed_password = bcrypt_sha256.hash(user.password)
+        hashed_password = bcrypt_sha256.hash(user.password[:72])
     
         # Save user data in the database
         cursor.execute("INSERT INTO users (user_id, user_name, email, password, registration_date) VALUES (%s, %s, %s, %s, %s)",
