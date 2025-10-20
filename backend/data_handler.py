@@ -1,5 +1,5 @@
 from fastapi import APIRouter, UploadFile, File, HTTPException, Query, Depends
-from passlib.hash import bcrypt_sha256
+from passlib.hash import bcrypt
 import uuid as uuid_pkg
 from pydantic import BaseModel, EmailStr, StringConstraints
 from typing import Annotated
@@ -104,9 +104,7 @@ def register_user(uuid: uuid_pkg.UUID, user: UserRegistration):
                     status_code=400, detail=f"Email '{user.email}' is already exist!"
                 )
         
-        
-
-        hashed_password = bcrypt_sha256.hash(user.password[:72])
+        hashed_password = bcrypt.hash(user.password)
     
         # Save user data in the database
         cursor.execute("INSERT INTO users (user_id, user_name, email, password, registration_date) VALUES (%s, %s, %s, %s, %s)",
@@ -171,7 +169,7 @@ def user_login(login_data: LoginInput):
         db_password = row["password"]
 
 
-        if not bcrypt_sha256.verify(login_data.password, db_password):
+        if not bcrypt.verify(login_data.password, db_password):
             logging.warning(f"Login failed: Wrong password for {login_data.identifier}")
             raise HTTPException(status_code=401, detail="Invalid credentials.")
         
@@ -561,7 +559,7 @@ def delete_account(password: DeleteAccountInput, current_user: str = Depends(req
                 status_code=404, detail=f"User not found")
         
         db_password = row["password"]
-        if not bcrypt_sha256.verify(password.password, db_password):
+        if not bcrypt.verify(password.password, db_password):
             logging.warning(f"Account deletion failed: Wrong password. UUID: '{user_id}'")
             raise HTTPException(status_code=401, detail="Wrong password.")
         

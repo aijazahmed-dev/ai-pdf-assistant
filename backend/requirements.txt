@@ -3,7 +3,8 @@ uvicorn[standard]
 python-multipart
 pypdf
 google-genai
-passlib[bcrypt]
+passlib
+bcrypt==4.3.0
 email-validator
 itsdangerous
 python-dotenv
