@@ -20,7 +20,7 @@ if st.button("Register"):
         if response.status_code in (200, 201):
             st.success("User registered successfully. Go to login page")
         else:
-            st.error("Registration failed")
+            st.error(f"Registration failed {response.status_code}")
 
 
     
