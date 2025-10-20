@@ -15,12 +15,20 @@ password = st.text_input("Enter Password", type="password")
 if st.button("Register"):
     if not uuid or not user_name or not email or not password:
         st.warning("All fields are required!")
-    else: 
-        response = requests.post(f"{API_URL}/api/v1/register_user/{uuid}", json={"user_name": user_name, "email": email, "password": password})
-        if response.status_code in (200, 201):
-            st.success("User registered successfully. Go to login page")
-        else:
-            st.error(response.json().get("detail", "Registration failed"))
+    else:
+        try:
+            response = requests.post(f"{API_URL}/api/v1/register_user/{uuid}", json={"user_name": user_name, "email": email, "password": password})
+            if response.status_code in (200, 201):
+                st.success("User registered successfully. Go to login page")
+            else:
+                try:
+                    error_detail = response.json().get("detail", "Registration failed")
+                except ValueError:
+                    error_detail = f"Non-JSON response: {response.text[:100]}"
+                st.error(f"{error_detail} (Status: {response.status_code})")
+        
+        except requests.exceptions.RequestException as e:
+            st.error(f"Request failed: {e}")
 
 
     
