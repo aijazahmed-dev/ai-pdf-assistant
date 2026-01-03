@@ -455,7 +455,9 @@ def query_data(query: str = Query(..., min_length=1),
         stored_text = row["pdf_text"]
 
         # Send stored text and query to the LLM and get response
-        llm_response = get_llm_response(context=stored_text, query=query)
+        try:
+            llm_response = get_llm_response(context=stored_text, query=query)
+        except Exception as e: raise HTTPException(status_code=429,detail="LLM quota exceeded. Please try again later.")
 
         # Log successful query
         logging.info(

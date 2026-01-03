@@ -1,0 +1,17 @@
+01-01-2026 03:51:18 PM - INFO - Registration attempt for UUID: 4564733e-6437-41fe-9f12-9145189b5850, username: jamali
+01-01-2026 04:07:32 PM - INFO - Registration attempt for UUID: 4564733e-6437-41fe-9f12-9145189b5850, username: jamali
+01-01-2026 04:19:21 PM - INFO - Registration attempt for UUID: 4564733e-6437-41fe-9f12-9145189b5850, username: jamali
+01-01-2026 04:19:21 PM - WARNING - (trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "C:\Users\Aaman\miniconda3\envs\pdf_reader\Lib\site-packages\passlib\handlers\bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+              ^^^^^^^^^^^^^^^^^
+AttributeError: module 'bcrypt' has no attribute '__about__'
+01-01-2026 04:19:25 PM - INFO - User registered successfully: UUID=4564733e-6437-41fe-9f12-9145189b5850, username=jamali
+01-01-2026 04:20:01 PM - INFO - Login attempt for user: jamali@gmail.com
+01-01-2026 04:20:34 PM - INFO - Upload attempt: user=4564733e-6437-41fe-9f12-9145189b5850, file=AijazAhmedResume.pdf
+01-01-2026 04:20:35 PM - INFO - Upload successful: user=4564733e-6437-41fe-9f12-9145189b5850, file=AijazAhmedResume.pdf
+01-01-2026 04:21:00 PM - INFO - User 'jamali' is querying UUID '4564733e-6437-41fe-9f12-9145189b5850' with question: 'tell me in one line what is document for'
+01-01-2026 04:21:02 PM - INFO - AFC is enabled with max remote calls: 10.
+01-01-2026 04:21:02 PM - INFO - AFC remote call 1 is done.
+01-01-2026 04:21:03 PM - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:streamGenerateContent?alt=sse "HTTP/1.1 429 Too Many Requests"

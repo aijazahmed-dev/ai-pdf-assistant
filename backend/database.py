@@ -6,7 +6,7 @@ import time
 
 load_dotenv() 
 
-DATABASE_URL = os.getenv("DATABASE_URL")
+DATABASE_URL = os.getenv("URL")
 
 def get_connection():
     retries = 10
